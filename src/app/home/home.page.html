@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-toolbar class='text-inferior' color='danger'>
+        <ion-title class='titulo' color='titulo'>
+            Contact List
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <br>
+    <ion-title class='title'>Add Contacts</ion-title>
+    <br>
+    <ion-item>
+        <ion-label position="floating" style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">
+            <ion-icon name="people-outline"></ion-icon> Name: </ion-label>
+        <ion-input value={{name}} [(ngModel)]=name></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating" style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">
+            <ion-icon name="call-outline"></ion-icon>Phone: </ion-label>
+        <ion-input value={{phone}} [(ngModel)]=phone></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating" style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">
+            <ion-icon name="mail-outline"></ion-icon>Email: </ion-label>
+        <ion-input value={{email}} [(ngModel)]=email></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <p id=genero style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">unselected</p>
+    </ion-item>
+    <ion-list>
+        <ion-button color="color-Woman" style="border-radius: 10px;" (click)=woman() (click)='WomanMan()' class=colorWoman>
+            <ion-icon class="icono-female" name="female-outline"></ion-icon>
+        </ion-button>
+        <ion-label style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">Woman</ion-label>
+        <ion-button color="color-Man" style="border-radius: 10px;" (click)=man() (click)='WomanMan()' class=colorMan>
+            <ion-icon class="icono-male" name="male-outline"></ion-icon>
+        </ion-button>
+        <ion-label style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">Man</ion-label>
+    </ion-list>
+    <ion-item>
+        <ion-label position="floating" style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">
+            <ion-icon name="book-outline"></ion-icon>Notes: </ion-label>
+        <ion-input value={{notes}} [(ngModel)]=notes></ion-input>
+    </ion-item>
+
+    <ion-button class='save' expand="full" (click)=guardar(name,phone,email,notes)>
+        <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-button>
+
+    <p *ngIf="contacts.length == 0" style="font-size: 30px; font-family: Arial, Helvetica, sans-serif;">No contacts have been added</p><br>
+
+    <div *ngIf="contacts.length > 0">
+        <ion-title style=font-size:28px>
+            Contacts
+        </ion-title>
+
+        <ion-item>
+            <ion-label>show contacts</ion-label>
+            <ion-toggle (click)=switchDiv()></ion-toggle>
+        </ion-item>
+        <div *ngIf="div">
+            <ion-card *ngFor="let contact of contacts; let i = index" [ngClass]="contacts[i].genero?'colorMn':'colorWo'">
+                <ion-card-header>
+                    <ion-card-title>{{contacts[i].name}}</ion-card-title>
+                    <ion-card-title>{{contacts[i].phone}}</ion-card-title>
+                    <ion-card-title>{{contacts[i].email}}</ion-card-title>
+                    <ion-card-subtitle>{{contacts[i].notes}}</ion-card-subtitle>
+                    <ion-button class="boton" color=danger (click)='eliminarAlert(i)'>
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
+                </ion-card-header>
+            </ion-card>
+        </div>
+    </div>
+</ion-content>
